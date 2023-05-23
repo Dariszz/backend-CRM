@@ -5,6 +5,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -21,6 +23,9 @@ public class Cliente {
 
     private String nome, email, telefone, cpf;
     private int cep, pontuacao;
+
+    @OneToMany(cascade = CascadeType.ALL)
+    private List<Cupom> cupons = new ArrayList<>();
 
 
 }
