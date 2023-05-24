@@ -27,5 +27,9 @@ public class Cliente {
     @OneToMany(cascade = CascadeType.ALL)
     private List<Cupom> cupons = new ArrayList<>();
 
+    @OneToMany(mappedBy = "cliente")
+    List<TicketSuporte> tickets = new ArrayList<>();
+
+
 
 }
