@@ -18,12 +18,22 @@ public class ClienteService {
         return clienteDao.save(cliente);
     }
 
+    public Cliente atualizarPontuacaoCliente(int id, double valorVenda) throws Exception {
+        Cliente c = buscarClienteId(id);
+        if (c == null) {
+            throw new Exception("Cliente não existe");
+        }
+        double pontuacaoTotal = 0;
 
-    public void atualizarPontuacao(Integer id, BigDecimal preco) {
-        Cliente cliente = buscarClienteId(id);
-        int pontos = cliente.getPontuacao();
-        cliente.setPontuacao(pontos + preco.intValue()); //Cada real = 1 ponto
-        clienteDao.save(cliente);
+        if (valorVenda <= 100) {
+            pontuacaoTotal += 20;
+        } else if (valorVenda <= 500){
+            pontuacaoTotal += 50;
+        } else {
+            pontuacaoTotal += 100;
+        }
+        c.setPontuacao(c.getPontuacao() + pontuacaoTotal);
+        return clienteDao.save(c);
     }
 
     public Cliente buscarClienteId(int id) {
