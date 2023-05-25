@@ -11,11 +11,22 @@ public class CupomService {
     @Autowired
     CupomDao cupomDao;
 
-    public Optional<Cupom> BuscarPeloId(int id) {
-        return cupomDao.findById(id);
+    public Cupom BuscarPeloId(int id) {
+        Optional<Cupom> c = cupomDao.findById(id);
+        if (c.isPresent()){
+            return c.get();
+        } else{
+            return null;
+        }
     }
 
     public Cupom save(Cupom cupom) {
         return cupomDao.save(cupom);
+    }
+
+    public Cupom cancelar(int id) {
+        Cupom c = BuscarPeloId(id);
+    c.setCupomValido(false);
+    return cupomDao.save(c);
     }
 }

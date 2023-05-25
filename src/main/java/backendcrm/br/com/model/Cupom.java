@@ -19,5 +19,4 @@ public class Cupom {
     private Integer desconto;
 
     private boolean cupomValido;
-
 }
