@@ -5,6 +5,7 @@ import backendcrm.br.com.service.dao.ClienteDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.math.BigDecimal;
 import java.util.Optional;
 
 @RestController
@@ -18,13 +19,11 @@ public class ClienteService {
     }
 
 
-    public Cliente atualizarPontuacaoCliente(int id, Cliente cliente) throws Exception {
-        Cliente c = buscarClienteId(id);
-        if (c == null) {
-            throw new Exception("Cliente não existe");
-        }
-        c.setPontuacao(cliente.getPontuacao());
-        return clienteDao.save(c);
+    public void atualizarPontuacao(Integer id, BigDecimal preco) {
+        Cliente cliente = buscarClienteId(id);
+        int pontos = cliente.getPontuacao();
+        cliente.setPontuacao(pontos + preco.intValue()); //Cada real = 1 ponto
+        clienteDao.save(cliente);
     }
 
     public Cliente buscarClienteId(int id) {

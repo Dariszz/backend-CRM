@@ -1,6 +1,5 @@
 package backendcrm.br.com.model;
 
-import backendcrm.br.com.resource.ClienteResource;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -16,7 +15,6 @@ import java.time.LocalDateTime;
 public class TicketSuporte {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne
@@ -29,7 +27,7 @@ public class TicketSuporte {
     @Enumerated(EnumType.STRING)
     private Status status;
 
-    @CreatedDate //Basicamente o spring vai injeta a data sozinho.
+    @CreatedDate //spring vai injeta a data sozinho.
     private LocalDateTime dataAbertura;
 
     private LocalDateTime dataFechamento;

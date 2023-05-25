@@ -27,23 +27,12 @@ public class ClienteResource {
         return clienteService.save(cliente);
 
     }
-
-    @PutMapping("/cliente/pontuacao/{id}")
-    public ResponseEntity<?> atualizarPontuacao(@PathVariable int id, @RequestBody Cliente cliente) {
-
-        try {
-            return ResponseEntity.ok(clienteService.atualizarPontuacaoCliente(id, cliente));
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
-        }
-
-    }
-
-    // localhost:8080/clientes/pontuacao/1?preco=1.99
-    //@PutMapping("/pontuacao/{id}") //Pode alterar o endpoint se preferir, mas precisa incluir o "{id}"
-    //public ResponseEntity<Void> atualizarPontuacao(@PathVariable Integer id, @RequestParam BigDecimal preco) {
-        //Aqui faz a lógica para aumenta a pontuação do cliente
-    //}
+    @PutMapping("/{id}")
+    public ResponseEntity<Void> atualizarPontuacao(@PathVariable Integer id, @RequestParam BigDecimal preco) {
+        clienteService.atualizarPontuacao(id, preco);
+        return ResponseEntity.ok().build();
+    } //http://localhost:8080/cadastro/69?preco=171,69 URL
+    //Semi-Pronto, faltando apenas pegar a requisição de id e valor da compra do grupo de Compras.
 
 
 }
