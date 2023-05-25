@@ -18,7 +18,6 @@ public class Cliente {
 
     //id, nome, email, telefone, cpf, cep
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     private int idCliente;
 
     private String nome, email, telefone, cpf;
