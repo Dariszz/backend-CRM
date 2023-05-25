@@ -30,5 +30,4 @@ public class Interacao {
     public enum Tipo {
         CHAMADA, EMAIL, VISITA, OUTROS
     }
-
 }

@@ -1,48 +1,21 @@
 package backendcrm.br.com.service;
 
-import backendcrm.br.com.model.dto.CupomDTO;
-import backendcrm.br.com.service.IService;
 import backendcrm.br.com.model.Cupom;
-import backendcrm.br.com.resource.CupomRepository;
-import backendcrm.br.com.utils.Mapper;
-import lombok.RequiredArgsConstructor;
+import backendcrm.br.com.service.dao.CupomDao;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
+import java.util.Optional;
 
 @Service
-@RequiredArgsConstructor
-public class CupomService implements IService<Cupom, CupomDTO> {
+public class CupomService {
+    @Autowired
+    CupomDao cupomDao;
 
-    private final CupomRepository repository;
-
-    @Override
-    public Cupom findById(Long id) {
-        return repository.findById(id)
-                .orElseThrow(() -> getNotFoundException("Cupom não encontrado"));
+    public Optional<Cupom> BuscarPeloId(int id) {
+        return cupomDao.findById(id);
     }
 
-    @Override
-    public List<Cupom> findAll() {
-        return repository.findAll();
+    public Cupom save(Cupom cupom) {
+        return cupomDao.save(cupom);
     }
-
-    @Override
-    public Cupom save(CupomDTO cupomDTO) {
-        Cupom cupom = Mapper.INSTANCE.map(cupomDTO, Cupom.class);
-        return repository.save(cupom);
-    }
-
-    @Override
-    public void update(CupomDTO cupomDTO, Long id) {
-        Cupom cupom = findById(id);
-        Mapper.INSTANCE.map(cupomDTO, cupom);
-        repository.save(cupom);
-    }
-
-    @Override
-    public void delete(Long id) {
-        repository.delete(findById(id));
-    }
-
 }
