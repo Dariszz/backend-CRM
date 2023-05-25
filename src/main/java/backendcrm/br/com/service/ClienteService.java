@@ -17,13 +17,21 @@ public class ClienteService {
         return clienteDao.save(cliente);
     }
 
-
-    public Cliente atualizarPontuacaoCliente(int id, Cliente cliente) throws Exception {
+    public Cliente atualizarPontuacaoCliente(int id, double valorVenda) throws Exception {
         Cliente c = buscarClienteId(id);
         if (c == null) {
             throw new Exception("Cliente não existe");
         }
-        c.setPontuacao(cliente.getPontuacao());
+        double pontuacaoTotal = 0;
+
+        if (valorVenda <= 100) {
+            pontuacaoTotal += 20;
+        } else if (valorVenda <= 500){
+            pontuacaoTotal += 50;
+        } else {
+            pontuacaoTotal += 100;
+        }
+        c.setPontuacao(c.getPontuacao() + pontuacaoTotal);
         return clienteDao.save(c);
     }
 
