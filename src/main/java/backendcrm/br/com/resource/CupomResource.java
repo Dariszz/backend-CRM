@@ -26,6 +26,7 @@ public class CupomResource{
     public ResponseEntity<Cupom> save(@RequestBody @Valid Cupom cupom) {
         return new ResponseEntity<>(service.save(cupom), HttpStatus.CREATED);
     }
+    //Cancelar Cupom
     @PutMapping ("/cancelar/{id}")
     public ResponseEntity<Cupom> save(@PathVariable int id) {
         return new ResponseEntity<>(service.cancelar(id), HttpStatus.CREATED);

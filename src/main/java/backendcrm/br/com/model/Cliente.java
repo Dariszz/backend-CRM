@@ -18,6 +18,7 @@ public class Cliente {
 
     //id, nome, email, telefone, cpf, cep
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idCliente;
 
     private String nome, email, telefone, cpf;
