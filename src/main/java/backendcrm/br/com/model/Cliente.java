@@ -3,7 +3,6 @@ package backendcrm.br.com.model;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,14 +15,22 @@ import java.util.List;
 
 public class Cliente {
 
-    //id, nome, email, telefone, cpf, cep
+
+    // id, nome, email, telefone, cpf, cep
+    // criar histórico de cliente (todas as compras etc)
+    // criar sistema de VIP
+    // tipo de cupom
+    // desconto em datas especiais
+    // criar um saldo para o cliente, atualizar saldo
+
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idCliente;
 
     private String nome, email, telefone, cpf;
     private int cep;
-    private double pontuacao;
+    private double pontuacao, saldo;
 
     @OneToMany(cascade = CascadeType.ALL)
     private List<Cupom> cupons = new ArrayList<>();

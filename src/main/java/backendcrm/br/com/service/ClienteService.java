@@ -1,11 +1,13 @@
 package backendcrm.br.com.service;
 
 import backendcrm.br.com.model.Cliente;
+import backendcrm.br.com.model.dto.StatusDTO;
 import backendcrm.br.com.service.dao.ClienteDao;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.math.BigDecimal;
+import org.springframework.web.client.RestTemplate;
 import java.util.Optional;
 
 @RestController
@@ -14,6 +16,9 @@ public class ClienteService {
     @Autowired
     ClienteDao clienteDao;
 
+    @Qualifier("mock")
+    @Autowired
+    RestTemplate rest;
     public Cliente save(Cliente cliente) {
         return clienteDao.save(cliente);
     }
@@ -46,4 +51,10 @@ public class ClienteService {
         }
     }
 
+    public String validarVendedor(int id) {
+        String url = "https://localhost:8080/rh/validar/cliente/1" + id;
+        ResponseEntity<StatusDTO> resp = rest.getForEntity(url, StatusDTO.class);
+        StatusDTO c = resp.getBody();
+        return c.getStatus();
+    }
 }

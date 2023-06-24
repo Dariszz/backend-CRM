@@ -2,30 +2,26 @@ package backendcrm.br.com.resource;
 
 import backendcrm.br.com.model.Cliente;
 import backendcrm.br.com.service.ClienteService;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.persistence.*;
-import java.math.BigDecimal;
-import java.time.LocalDateTime;
-
-@RequestMapping("/cadastro")
+@RequestMapping("/cliente")
 @RestController
 
 public class ClienteResource {
 
     @Autowired
     ClienteService clienteService;
-    @PostMapping("/cliente")
+    @PostMapping("/cadastro")
     public Cliente salvarCliente(@RequestBody Cliente cliente) {
-
         return clienteService.save(cliente);
+    }
 
+    @GetMapping("/buscar/{id}")
+    public Cliente buscarClienteId(@PathVariable int id) {
+        return clienteService.buscarClienteId(id);
     }
 
     @PutMapping("/cliente/pontuacao/{id}/{valorVenda}")
@@ -36,6 +32,8 @@ public class ClienteResource {
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
         }
-
     }
+
+
+
 }
