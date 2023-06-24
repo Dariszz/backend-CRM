@@ -1,6 +1,7 @@
 package backendcrm.br.com.service;
 
 import backendcrm.br.com.model.Cliente;
+import backendcrm.br.com.model.ClienteSaldo;
 import backendcrm.br.com.model.dto.StatusDTO;
 import backendcrm.br.com.service.dao.ClienteDao;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,4 +58,19 @@ public class ClienteService {
         StatusDTO c = resp.getBody();
         return c.getStatus();
     }
+
+    public Cliente atualizarSaldo(ClienteSaldo clienteSaldo) throws Exception {
+        Cliente c = buscarClienteId(clienteSaldo.getId());
+        if (c == null) {
+            throw new Exception("Cliente não existe");
+        }
+        if (clienteSaldo.isOperacaoTipoCredito() == true) {
+            c.setSaldo(c.getSaldo() + clienteSaldo.getValorSaldo());
+            return clienteDao.save(c);
+        } else {
+            c.setSaldo(c.getSaldo() - clienteSaldo.getValorSaldo());
+            return clienteDao.save(c);
+        }
+    }
+
 }

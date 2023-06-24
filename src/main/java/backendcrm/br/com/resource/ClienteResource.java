@@ -1,6 +1,7 @@
 package backendcrm.br.com.resource;
 
 import backendcrm.br.com.model.Cliente;
+import backendcrm.br.com.model.ClienteSaldo;
 import backendcrm.br.com.service.ClienteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -22,6 +23,16 @@ public class ClienteResource {
     @GetMapping("/buscar/{id}")
     public Cliente buscarClienteId(@PathVariable int id) {
         return clienteService.buscarClienteId(id);
+    }
+
+    @PutMapping("/saldo/atualizar")
+    public ResponseEntity<?> atualizarSaldo(@RequestBody ClienteSaldo clienteSaldo) {
+
+        try {
+            return ResponseEntity.ok(clienteService.atualizarSaldo(clienteSaldo));
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        }
     }
 
     @PutMapping("/cliente/pontuacao/{id}/{valorVenda}")
