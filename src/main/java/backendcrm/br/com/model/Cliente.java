@@ -22,6 +22,7 @@ public class Cliente {
     // tipo de cupom
     // desconto em datas especiais
     // criar um saldo para o cliente, atualizar saldo
+    // criar cadastro
 
 
     @Id
