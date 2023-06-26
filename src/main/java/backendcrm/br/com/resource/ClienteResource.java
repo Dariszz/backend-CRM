@@ -35,9 +35,8 @@ public class ClienteResource {
         }
     }
 
-    @PutMapping("/cliente/pontuacao/{id}/{valorVenda}")
+    @PutMapping("/pontuacao/{id}/{valorVenda}")
     public ResponseEntity<?> atualizarPontuacao(@PathVariable int id, @PathVariable double valorVenda) {
-
         try {
             return ResponseEntity.ok(clienteService.atualizarPontuacaoCliente(id, valorVenda));
         } catch (Exception e) {
