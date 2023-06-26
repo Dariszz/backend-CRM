@@ -35,6 +35,11 @@ public class ClienteResource {
         }
     }
 
+    @GetMapping("/verificarCadastro/{id}")
+    public boolean verificarClienteCadastrado(@PathVariable int id) {
+        return clienteService.verificarClienteCadastrado(id);
+    }
+
     @PutMapping("/pontuacao/{id}/{valorVenda}")
     public ResponseEntity<?> atualizarPontuacao(@PathVariable int id, @PathVariable double valorVenda) {
         try {

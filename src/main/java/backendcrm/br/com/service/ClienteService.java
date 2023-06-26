@@ -52,6 +52,15 @@ public class ClienteService {
         }
     }
 
+    public boolean verificarClienteCadastrado(int id){
+        Optional<Cliente> cliente = clienteDao.findById(id);
+        if (cliente.isPresent()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     public String validarVendedor(int id) {
         String url = "https://localhost:8080/rh/validar/cliente/1" + id;
         ResponseEntity<StatusDTO> resp = rest.getForEntity(url, StatusDTO.class);
