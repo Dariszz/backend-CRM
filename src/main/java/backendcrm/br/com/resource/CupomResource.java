@@ -11,7 +11,7 @@ import javax.validation.Valid;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/cupons")
+@RequestMapping("/cupom")
 
 public class CupomResource{
     @Autowired
@@ -31,5 +31,4 @@ public class CupomResource{
     public ResponseEntity<Cupom> save(@PathVariable int id) {
         return new ResponseEntity<>(service.cancelar(id), HttpStatus.CREATED);
     }
-
 }

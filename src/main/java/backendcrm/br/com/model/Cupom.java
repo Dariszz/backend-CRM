@@ -20,6 +20,5 @@ public class Cupom {
 
     //tipo cupom (frete gratis, desconto, compre 2 leve 1)
 
-
     private boolean cupomValido;
 }

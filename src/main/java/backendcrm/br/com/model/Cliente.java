@@ -15,13 +15,8 @@ import java.util.List;
 
 public class Cliente {
 
-
-    // id, nome, email, telefone, cpf, cep
-    // criar histórico de cliente (todas as compras etc)
     // criar sistema de VIP
     // tipo de cupom
-    // desconto em datas especiais
-    // criar um saldo para o cliente, atualizar saldo
     // criar cadastro
 
 
