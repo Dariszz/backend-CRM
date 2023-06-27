@@ -10,5 +10,5 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ValorVendaDTO {
-    private double valorVenda;
+    private double valorTotal;
 }

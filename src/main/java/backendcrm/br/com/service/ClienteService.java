@@ -17,7 +17,6 @@ import java.util.Optional;
 public class ClienteService {
     @Autowired
     ClienteDao clienteDao;
-    @Qualifier("mock")
     @Autowired
     RestTemplate rest;
     public Cliente save(Cliente cliente) {
@@ -75,17 +74,11 @@ public class ClienteService {
             return false;
         }
     }
-    public String validarVendedor(int id) {
-        String url = "https://localhost:8080/rh/validar/cliente/1" + id;
-        ResponseEntity<StatusDTO> resp = rest.getForEntity(url, StatusDTO.class);
-        StatusDTO c = resp.getBody();
-        return c.getStatus();
-    }
     public double valorTotal(int idPedido) {
-        String url = "http://backend-vendas-production.up.railway.app/pedido/buscar/valor/pedido/" + idPedido;
+        String url = "https://backend-vendas-production.up.railway.app/pedido/buscar/valor/pedido/" + idPedido;
         ResponseEntity<ValorVendaDTO> resp = rest.getForEntity(url, ValorVendaDTO.class);
         ValorVendaDTO c = resp.getBody();
-        return c.getValorVenda();
+        return c.getValorTotal();
     }
     public Cliente atualizarSaldo(ClienteSaldo clienteSaldo) throws Exception {
         Cliente c = buscarClienteId(clienteSaldo.getId());
