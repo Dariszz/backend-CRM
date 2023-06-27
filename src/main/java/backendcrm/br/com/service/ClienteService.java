@@ -2,12 +2,11 @@ package backendcrm.br.com.service;
 
 import backendcrm.br.com.model.Cliente;
 import backendcrm.br.com.model.ClienteSaldo;
-import backendcrm.br.com.model.dto.StatusDTO;
+import backendcrm.br.com.model.dto.DescontoDTO;
 import backendcrm.br.com.model.dto.TelefoneDTO;
 import backendcrm.br.com.model.dto.ValorVendaDTO;
 import backendcrm.br.com.service.dao.ClienteDao;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
@@ -98,8 +97,21 @@ public class ClienteService {
         if (cliente.isPresent()) {
             TelefoneDTO telefoneDTO = TelefoneDTO.builder()
                     .telefone(cliente.get().getTelefone())
+                    .nome(cliente.get().getNome())
                     .build();
             return telefoneDTO;
+        } else {
+            throw new Exception("Cliente não existe.");
+        }
+    }
+
+    public DescontoDTO pegarDesconto(int id) throws Exception {
+        Optional<Cliente> cliente = clienteDao.findById(id);
+        if (cliente.isPresent()) {
+            DescontoDTO descontoDTO = DescontoDTO.builder()
+                    .desconto(cliente.get().getPontuacao())
+                    .build();
+            return descontoDTO;
         } else {
             throw new Exception("Cliente não existe.");
         }

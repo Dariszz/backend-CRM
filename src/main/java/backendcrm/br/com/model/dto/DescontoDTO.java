@@ -11,7 +11,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 
 public class DescontoDTO {
-    private int clienteId;
-    private Double valorTotal, desconto;
-    private String formaPagamento;
+    private double desconto;
+
 }

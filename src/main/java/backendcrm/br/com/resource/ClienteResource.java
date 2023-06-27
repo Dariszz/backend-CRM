@@ -50,4 +50,13 @@ public class ClienteResource {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
         }
     }
+
+    @GetMapping("/pontuacao/{id}")
+    public ResponseEntity<?> pegarDesconto(@PathVariable int id) {
+        try {
+            return ResponseEntity.ok(clienteService.pegarDesconto(id));
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        }
+    }
 }

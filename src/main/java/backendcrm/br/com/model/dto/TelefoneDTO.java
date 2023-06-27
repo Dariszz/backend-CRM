@@ -10,5 +10,5 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class TelefoneDTO {
-    private String telefone;
+    private String telefone, nome;
 }
