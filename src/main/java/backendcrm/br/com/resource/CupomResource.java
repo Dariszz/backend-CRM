@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -34,5 +35,9 @@ public class CupomResource{
     @GetMapping("/check/{idCliente}")
     public ResponseEntity<Boolean> checarCupons(@PathVariable int idCliente) {
         return ResponseEntity.ok(service.checarCupons(idCliente));
+    }
+    @GetMapping("/all/{id}")
+    public ResponseEntity<List<Cupom>> obterCupons(@PathVariable int id) {
+        return ResponseEntity.ok(service.obterCupons(id));
     }
 }

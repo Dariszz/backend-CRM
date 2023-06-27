@@ -7,6 +7,8 @@ import backendcrm.br.com.model.dto.TelefoneDTO;
 import backendcrm.br.com.model.dto.ValorVendaDTO;
 import backendcrm.br.com.service.dao.ClienteDao;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
@@ -100,7 +102,6 @@ public class ClienteService {
             throw new Exception("Cliente não existe.");
         }
     }
-
     public DescontoDTO pegarDesconto(int id) throws Exception {
         Optional<Cliente> cliente = clienteDao.findById(id);
         if (cliente.isPresent()) {
@@ -111,5 +112,10 @@ public class ClienteService {
         } else {
             throw new Exception("Cliente não existe.");
         }
+    }
+    public Double buscarCashback(int id) {
+        String url = "https://gateway-sgeu.up.railway.app/financas/modulo-de-pagamentos/pagamento-cashback/{clienteId}" + id;
+        HttpEntity<Object> entity = new HttpEntity<>(null);
+        return rest.exchange(url, HttpMethod.POST, entity, Double.class, id).getBody();
     }
 }
