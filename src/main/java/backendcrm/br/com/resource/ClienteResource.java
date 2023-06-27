@@ -34,7 +34,7 @@ public class ClienteResource {
     public boolean verificarClienteCadastrado(@PathVariable int id) {
         return clienteService.verificarClienteCadastrado(id);
     }
-    @PutMapping("/pontuacao/{id}/{idPedido}")
+    @PostMapping("/pontuacao/{id}/{idPedido}")
     public ResponseEntity<?> atualizarPontuacao(@PathVariable int id, @PathVariable int idPedido) {
         try {
             return ResponseEntity.ok(clienteService.atualizarPontuacaoCliente(id, idPedido));
@@ -51,7 +51,7 @@ public class ClienteResource {
         }
     }
 
-    @GetMapping("/pontuacao/{id}")
+    @GetMapping("/desconto/{id}")
     public ResponseEntity<?> pegarDesconto(@PathVariable int id) {
         try {
             return ResponseEntity.ok(clienteService.pegarDesconto(id));
@@ -59,4 +59,6 @@ public class ClienteResource {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
         }
     }
+
+
 }

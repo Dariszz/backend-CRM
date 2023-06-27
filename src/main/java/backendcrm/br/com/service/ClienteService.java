@@ -35,25 +35,21 @@ public class ClienteService {
         } else {
             pontuacaoTotal += 100;
         }
-        int vip = 0;
-        if (pontuacaoTotal == 200) {
-            vip += 1;
-        } else if (pontuacaoTotal == 350) {
-            vip += 2;
-        } else if (pontuacaoTotal == 500) {
-            vip += 3;
+        if (c.getPontuacao() == 40) {
+            c.setVip(1);
+        } else if (c.getPontuacao() == 80) {
+            c.setVip(2);
+        } else if (c.getPontuacao() == 100) {
+            c.setVip(3);
         }
-        double desconto = 0;
-        if (vip == 1) {
-            desconto = 100;
-        } else if (vip == 2) {
-            desconto = 250;
-        } else if (vip == 3) {
-            desconto = 500;
+        if (c.getVip() == 1) {
+            c.setDesconto(100);
+        } else if (c.getVip() == 2) {
+            c.setDesconto(250);
+        } else if (c.getVip() == 3) {
+            c.setDesconto(500);
         }
         c.setPontuacao(c.getPontuacao() + pontuacaoTotal);
-        c.setVip(c.getVip() + vip);
-        c.setDesconto(c.getDesconto() + desconto);
         return clienteDao.save(c);
     }
     public Cliente buscarClienteId(int id) {
@@ -109,7 +105,7 @@ public class ClienteService {
         Optional<Cliente> cliente = clienteDao.findById(id);
         if (cliente.isPresent()) {
             DescontoDTO descontoDTO = DescontoDTO.builder()
-                    .desconto(cliente.get().getPontuacao())
+                    .desconto(cliente.get().getDesconto())
                     .build();
             return descontoDTO;
         } else {
