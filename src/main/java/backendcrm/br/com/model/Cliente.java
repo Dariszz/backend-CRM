@@ -28,7 +28,7 @@ public class Cliente {
     private int cep;
     private double pontuacao, saldo;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "cliente")
     private List<Cupom> cupons = new ArrayList<>();
 
     @OneToMany(mappedBy = "cliente")

@@ -31,4 +31,8 @@ public class CupomResource{
     public ResponseEntity<Cupom> save(@PathVariable int id) {
         return new ResponseEntity<>(service.cancelar(id), HttpStatus.CREATED);
     }
+    @GetMapping("/check/{idCliente}")
+    public ResponseEntity<Boolean> checarCupons(@PathVariable int idCliente) {
+        return ResponseEntity.ok(service.checarCupons(idCliente));
+    }
 }
