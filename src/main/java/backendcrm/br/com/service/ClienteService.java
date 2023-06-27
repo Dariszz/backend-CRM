@@ -81,5 +81,10 @@ public class ClienteService {
             return clienteDao.save(c);
         }
     }
+    public ResponseEntity<Double> buscarPedidos(int id) {
+        String url = "http://backend-vendas-production.up.railway.app/pedido/buscar/valor/pedido/" + id;
+        return rest.getForEntity(url, Double.class);
+    }
+
 
 }

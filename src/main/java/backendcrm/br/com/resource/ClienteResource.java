@@ -48,6 +48,11 @@ public class ClienteResource {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
         }
     }
+    // http://localhost/pedidos/historicos/1
+    @GetMapping("/pedidos/historicos/{id}")
+    public ResponseEntity<Double> obterHistoricoPedidos(@PathVariable int id) {
+        return clienteService.buscarPedidos(id);
+    }
 
 
 
