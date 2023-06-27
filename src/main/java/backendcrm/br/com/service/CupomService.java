@@ -38,6 +38,8 @@ public class CupomService {
         } else {
             return false;
         }
-
+    }
+    public List<Cupom> obterCupons(int id) {
+        return cupomDao.obterCupons(id);
     }
 }

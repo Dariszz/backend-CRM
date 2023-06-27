@@ -16,7 +16,7 @@ public class Cupom {
 
     private String nome;
 
-    private Integer desconto;
+    private double desconto;
 
     //tipo cupom (frete gratis, desconto, compre 2 leve 1)
 
