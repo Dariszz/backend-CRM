@@ -15,16 +15,10 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Campanha {
-
     @Id
     private Long id;
-
     private String titulo;
-
     private String mensagem;
-
     private LocalDate dataInicio;
-
     private LocalDate dataFim;
-
 }

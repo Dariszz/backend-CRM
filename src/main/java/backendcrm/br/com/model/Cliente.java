@@ -25,8 +25,8 @@ public class Cliente {
     private int idCliente;
 
     private String nome, email, telefone, cpf;
-    private int cep;
-    private double pontuacao, saldo;
+    private int cep, vip;
+    private double pontuacao, saldo, desconto;
 
     @OneToMany(cascade = CascadeType.ALL)
     private List<Cupom> cupons = new ArrayList<>();

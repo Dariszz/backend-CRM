@@ -10,7 +10,6 @@ import java.util.Optional;
 public class CupomService {
     @Autowired
     CupomDao cupomDao;
-
     public Cupom BuscarPeloId(int id) {
         Optional<Cupom> c = cupomDao.findById(id);
         if (c.isPresent()){
@@ -19,11 +18,9 @@ public class CupomService {
             return null;
         }
     }
-
     public Cupom save(Cupom cupom) {
         return cupomDao.save(cupom);
     }
-
     public Cupom cancelar(int id) {
         Cupom c = BuscarPeloId(id);
     c.setCupomValido(false);

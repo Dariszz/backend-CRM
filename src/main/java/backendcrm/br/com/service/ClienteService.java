@@ -3,6 +3,8 @@ package backendcrm.br.com.service;
 import backendcrm.br.com.model.Cliente;
 import backendcrm.br.com.model.ClienteSaldo;
 import backendcrm.br.com.model.dto.StatusDTO;
+import backendcrm.br.com.model.dto.TelefoneDTO;
+import backendcrm.br.com.model.dto.ValorVendaDTO;
 import backendcrm.br.com.service.dao.ClienteDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -13,35 +15,49 @@ import java.util.Optional;
 
 @RestController
 public class ClienteService {
-
     @Autowired
     ClienteDao clienteDao;
-
     @Qualifier("mock")
     @Autowired
     RestTemplate rest;
     public Cliente save(Cliente cliente) {
         return clienteDao.save(cliente);
     }
-
-    public Cliente atualizarPontuacaoCliente(int id, double valorVenda) throws Exception {
-        Cliente c = buscarClienteId(id);
+    public Cliente atualizarPontuacaoCliente(int idCliente,int idPedido) throws Exception {
+        Cliente c = buscarClienteId(idCliente);
+        double valorVenda = valorTotal(idPedido);
         if (c == null) {
             throw new Exception("Cliente não existe");
         }
         double pontuacaoTotal = 0;
-
-        if (valorVenda <= 100) {
+        if (valorVenda <= 1000) {
             pontuacaoTotal += 20;
-        } else if (valorVenda <= 500){
+        } else if (valorVenda <= 5000){
             pontuacaoTotal += 50;
         } else {
             pontuacaoTotal += 100;
         }
+        int vip = 0;
+        if (pontuacaoTotal == 200) {
+            vip += 1;
+        } else if (pontuacaoTotal == 350) {
+            vip += 2;
+        } else if (pontuacaoTotal == 500) {
+            vip += 3;
+        }
+        double desconto = 0;
+        if (vip == 1) {
+            desconto = 100;
+        } else if (vip == 2) {
+            desconto = 250;
+        } else if (vip == 3) {
+            desconto = 500;
+        }
         c.setPontuacao(c.getPontuacao() + pontuacaoTotal);
+        c.setVip(c.getVip() + vip);
+        c.setDesconto(c.getDesconto() + desconto);
         return clienteDao.save(c);
     }
-
     public Cliente buscarClienteId(int id) {
         Optional<Cliente> cliente = clienteDao.findById(id);
 
@@ -51,7 +67,6 @@ public class ClienteService {
             return null;
         }
     }
-
     public boolean verificarClienteCadastrado(int id){
         Optional<Cliente> cliente = clienteDao.findById(id);
         if (cliente.isPresent()) {
@@ -60,14 +75,18 @@ public class ClienteService {
             return false;
         }
     }
-
     public String validarVendedor(int id) {
         String url = "https://localhost:8080/rh/validar/cliente/1" + id;
         ResponseEntity<StatusDTO> resp = rest.getForEntity(url, StatusDTO.class);
         StatusDTO c = resp.getBody();
         return c.getStatus();
     }
-
+    public double valorTotal(int idPedido) {
+        String url = "http://backend-vendas-production.up.railway.app/pedido/buscar/valor/pedido/" + idPedido;
+        ResponseEntity<ValorVendaDTO> resp = rest.getForEntity(url, ValorVendaDTO.class);
+        ValorVendaDTO c = resp.getBody();
+        return c.getValorVenda();
+    }
     public Cliente atualizarSaldo(ClienteSaldo clienteSaldo) throws Exception {
         Cliente c = buscarClienteId(clienteSaldo.getId());
         if (c == null) {
@@ -81,5 +100,15 @@ public class ClienteService {
             return clienteDao.save(c);
         }
     }
-
+    public TelefoneDTO buscarTelefone(int id) throws Exception {
+        Optional<Cliente> cliente = clienteDao.findById(id);
+        if (cliente.isPresent()) {
+            TelefoneDTO telefoneDTO = TelefoneDTO.builder()
+                    .telefone(cliente.get().getTelefone())
+                    .build();
+            return telefoneDTO;
+        } else {
+            throw new Exception("Cliente não existe.");
+        }
+    }
 }

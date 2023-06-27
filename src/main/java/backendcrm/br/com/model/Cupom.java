@@ -13,12 +13,8 @@ public class Cupom {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-
     private String nome;
-
     private Integer desconto;
-
     //tipo cupom (frete gratis, desconto, compre 2 leve 1)
-
     private boolean cupomValido;
 }
