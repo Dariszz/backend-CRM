@@ -32,7 +32,12 @@ public class CupomService {
     return cupomDao.save(c);
     }
     public boolean checarCupons(int idCliente) {
-        List<Cupom> cupoms = cupomDao.obterCupons(idCliente);
-        return !cupoms.isEmpty();
+        Optional<Cupom> c = cupomDao.findById(idCliente);
+        if (c.isPresent()) {
+            return true;
+        } else {
+            return false;
+        }
+
     }
 }

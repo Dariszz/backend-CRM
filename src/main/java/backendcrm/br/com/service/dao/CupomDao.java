@@ -11,6 +11,5 @@ import java.util.Optional;
 @Repository
 public interface CupomDao extends JpaRepository<Cupom, Integer> {
 //    void delete(Optional<Cupom> );
-    @Query("SELECT c FROM Cupom c WHERE c.cliente.idCliente = :idCliente")
-    List<Cupom> obterCupons(int idCliente);
+
 }
