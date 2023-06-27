@@ -15,25 +15,18 @@ import java.util.List;
 
 public class Cliente {
 
-    // criar sistema de VIP
-    // tipo de cupom
-    // criar cadastro
-
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idCliente;
 
     private String nome, email, telefone, cpf;
-    private int cep;
-    private double pontuacao, saldo;
+    private int cep, vip;
+    private double pontuacao, saldo, desconto;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "cliente")
     private List<Cupom> cupons = new ArrayList<>();
 
     @OneToMany(mappedBy = "cliente")
     List<TicketSuporte> tickets = new ArrayList<>();
-
-
 
 }

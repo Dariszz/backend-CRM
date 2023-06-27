@@ -11,11 +11,8 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 public class CupomDTO {
-
     private String nome;
-
     private Integer desconto;
-
     private LocalDateTime expira;
 
 }

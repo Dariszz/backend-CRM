@@ -9,9 +9,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 
 public class ClienteSaldo {
-
     private int id;
     private double valorSaldo;
     private boolean operacaoTipoCredito;
-
 }

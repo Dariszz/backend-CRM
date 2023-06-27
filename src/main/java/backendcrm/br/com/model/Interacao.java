@@ -12,21 +12,15 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Interacao {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-
     @ManyToOne
     private Cliente cliente;
-
     @Enumerated(EnumType.STRING)
     private Tipo tipo;
-
     private LocalDateTime data;
-
     private String descricao;
-
     public enum Tipo {
         CHAMADA, EMAIL, VISITA, OUTROS
     }
