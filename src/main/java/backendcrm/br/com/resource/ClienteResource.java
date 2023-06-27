@@ -50,11 +50,18 @@ public class ClienteResource {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
         }
     }
-
     @GetMapping("/desconto/{id}")
     public ResponseEntity<?> pegarDesconto(@PathVariable int id) {
         try {
             return ResponseEntity.ok(clienteService.pegarDesconto(id));
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        }
+    }
+    @PostMapping("/cashback/{id}")
+    public ResponseEntity<?> buscarCashback(@PathVariable int id) {
+        try {
+            return ResponseEntity.ok(clienteService.buscarCashback(id));
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
         }

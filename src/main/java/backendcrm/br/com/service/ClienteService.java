@@ -113,9 +113,16 @@ public class ClienteService {
             throw new Exception("Cliente não existe.");
         }
     }
-    public Double buscarCashback(int id) {
-        String url = "https://gateway-sgeu.up.railway.app/financas/modulo-de-pagamentos/pagamento-cashback/{clienteId}" + id;
+    public Cliente buscarCashback(int id) throws Exception {
+
+        String url = "https://gateway-sgeu.up.railway.app/financas/modulo-de-pagamentos/pagamento-cashback/" + id;
         HttpEntity<Object> entity = new HttpEntity<>(null);
-        return rest.exchange(url, HttpMethod.POST, entity, Double.class, id).getBody();
+        double c = rest.exchange(url, HttpMethod.POST, entity, Double.class, id).getBody();
+        Cliente cliente = buscarClienteId(id);
+
+        cliente.setSaldo(cliente.getSaldo() + (c * 100));
+        clienteDao.save(cliente);
+
+        return cliente;
     }
 }
