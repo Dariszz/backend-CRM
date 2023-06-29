@@ -72,7 +72,7 @@ public class ClienteService {
         }
     }
     public double valorTotal(int idPedido) {
-        String url = "https://backend-vendas-production.up.railway.app/pedido/buscar/valor/pedido/" + idPedido;
+        String url = "https://gateway-sgeu.up.railway.app/vendas/pedido/buscar/" + idPedido;
         ResponseEntity<ValorVendaDTO> resp = rest.getForEntity(url, ValorVendaDTO.class);
         ValorVendaDTO c = resp.getBody();
         return c.getValorTotal();
