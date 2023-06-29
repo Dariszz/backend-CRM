@@ -3,6 +3,7 @@ package backendcrm.br.com.service;
 import backendcrm.br.com.model.Cliente;
 import backendcrm.br.com.model.ClienteSaldo;
 import backendcrm.br.com.model.dto.DescontoDTO;
+import backendcrm.br.com.model.dto.PontuacaoDTO;
 import backendcrm.br.com.model.dto.TelefoneDTO;
 import backendcrm.br.com.model.dto.ValorVendaDTO;
 import backendcrm.br.com.service.dao.ClienteDao;
@@ -23,9 +24,9 @@ public class ClienteService {
     public Cliente save(Cliente cliente) {
         return clienteDao.save(cliente);
     }
-    public Cliente atualizarPontuacaoCliente(int idCliente,int idPedido) throws Exception {
-        Cliente c = buscarClienteId(idCliente);
-        double valorVenda = valorTotal(idPedido);
+    public Cliente atualizarPontuacaoCliente(PontuacaoDTO pontuacaoDTO) throws Exception {
+        Cliente c = buscarClienteId(pontuacaoDTO.getId());
+        double valorVenda = valorTotal(pontuacaoDTO.getIdPedido());
         if (c == null) {
             throw new Exception("Cliente não existe");
         }

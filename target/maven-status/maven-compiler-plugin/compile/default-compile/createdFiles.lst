@@ -14,7 +14,9 @@ backendcrm\br\com\model\dto\DescontoDTO.class
 backendcrm\br\com\model\TicketSuporte$Status.class
 backendcrm\br\com\model\TicketSuporte.class
 backendcrm\br\com\resource\ClienteResource.class
+backendcrm\br\com\model\dto\PontuacaoDTO.class
 backendcrm\br\com\model\dto\CupomDTO$CupomDTOBuilder.class
+backendcrm\br\com\model\dto\PontuacaoDTO$PontuacaoDTOBuilder.class
 backendcrm\br\com\model\Cliente.class
 backendcrm\br\com\resource\CupomResource.class
 backendcrm\br\com\model\Interacao.class

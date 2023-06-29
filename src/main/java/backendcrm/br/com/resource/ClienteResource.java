@@ -2,6 +2,7 @@ package backendcrm.br.com.resource;
 
 import backendcrm.br.com.model.Cliente;
 import backendcrm.br.com.model.ClienteSaldo;
+import backendcrm.br.com.model.dto.PontuacaoDTO;
 import backendcrm.br.com.service.ClienteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -35,9 +36,9 @@ public class ClienteResource {
         return clienteService.verificarClienteCadastrado(id);
     }
     @PostMapping("/pontuacao/{id}/{idPedido}")
-    public ResponseEntity<?> atualizarPontuacao(@PathVariable int id, @PathVariable int idPedido) {
+    public ResponseEntity<?> atualizarPontuacao(@RequestBody PontuacaoDTO pontuacaoDTO) {
         try {
-            return ResponseEntity.ok(clienteService.atualizarPontuacaoCliente(id, idPedido));
+            return ResponseEntity.ok(clienteService.atualizarPontuacaoCliente(pontuacaoDTO));
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
         }
