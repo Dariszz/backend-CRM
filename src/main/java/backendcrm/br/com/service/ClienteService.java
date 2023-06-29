@@ -30,26 +30,35 @@ public class ClienteService {
         if (c == null) {
             throw new Exception("Cliente não existe");
         }
+
         double pontuacaoTotal = 0;
-        if (valorVenda <= 1000) {
+        if (valorVenda < 500) {
+            pontuacaoTotal = 0;
+        } else if (valorVenda >= 500 && valorVenda <= 1000) {
             pontuacaoTotal += 20;
-        } else if (valorVenda <= 5000){
+        } else if (valorVenda >= 1001 && valorVenda <= 5000){
             pontuacaoTotal += 50;
         } else {
             pontuacaoTotal += 100;
         }
-        if (c.getPontuacao() == 40) {
+
+        if (c.getPontuacao() < 40) {
+            c.setVip(0);
+        } else if (c.getPontuacao() >= 40 && c.getPontuacao() < 80) {
             c.setVip(1);
-        } else if (c.getPontuacao() == 80) {
+        } else if (c.getPontuacao() >= 80 && c.getPontuacao() < 100) {
             c.setVip(2);
-        } else if (c.getPontuacao() == 100) {
+        } else {
             c.setVip(3);
         }
-        if (c.getVip() == 1) {
+
+        if (c.getVip() == 0) {
+            c.setDesconto(0);
+        } else if (c.getVip() == 1) {
             c.setDesconto(100);
         } else if (c.getVip() == 2) {
             c.setDesconto(250);
-        } else if (c.getVip() == 3) {
+        } else {
             c.setDesconto(500);
         }
         c.setPontuacao(c.getPontuacao() + pontuacaoTotal);
@@ -73,7 +82,7 @@ public class ClienteService {
         }
     }
     public double valorTotal(int idPedido) {
-        String url = "https://gateway-sgeu.up.railway.app/vendas/pedido/buscar/" + idPedido;
+        String url = "https://backendvendas.up.railway.app/pedido/buscar/valor/pedido/" + idPedido;
         ResponseEntity<ValorVendaDTO> resp = rest.getForEntity(url, ValorVendaDTO.class);
         ValorVendaDTO c = resp.getBody();
         return c.getValorTotal();
@@ -114,16 +123,22 @@ public class ClienteService {
             throw new Exception("Cliente não existe.");
         }
     }
-    public Cliente buscarCashback(int id) throws Exception {
+    public Cliente buscarCashback(PontuacaoDTO pontuacaoDTO) throws Exception {
 
-        String url = "https://gateway-sgeu.up.railway.app/financas/modulo-de-pagamentos/pagamento-cashback/" + id;
+        String url = "https://gateway-sgeu.up.railway.app/financas/modulo-de-pagamentos/pagamento-cashback/" + pontuacaoDTO.getId();
         HttpEntity<Object> entity = new HttpEntity<>(null);
-        double c = rest.exchange(url, HttpMethod.POST, entity, Double.class, id).getBody();
-        Cliente cliente = buscarClienteId(id);
+        double c = rest.exchange(url, HttpMethod.POST, entity, Double.class, pontuacaoDTO.getId()).getBody();
+        Cliente cliente = buscarClienteId(pontuacaoDTO.getId());
 
-        cliente.setSaldo(cliente.getSaldo() + (c * 100));
-        clienteDao.save(cliente);
+        double valorVenda = valorTotal(pontuacaoDTO.getIdPedido());
+        System.out.println(valorTotal(pontuacaoDTO.getIdPedido()));
 
-        return cliente;
+        if (cliente != null) {
+            cliente.setSaldo(cliente.getSaldo() + (c * valorVenda));
+            clienteDao.save(cliente);
+            return cliente;
+        } else {
+            throw new Exception("Cliente não existe.");
+        }
     }
 }

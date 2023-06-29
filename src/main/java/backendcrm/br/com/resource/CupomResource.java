@@ -36,8 +36,4 @@ public class CupomResource{
     public ResponseEntity<Boolean> checarCupons(@PathVariable int idCliente) {
         return ResponseEntity.ok(service.checarCupons(idCliente));
     }
-    @GetMapping("/all/{id}")
-    public ResponseEntity<List<Cupom>> obterCupons(@PathVariable int id) {
-        return ResponseEntity.ok(service.obterCupons(id));
-    }
 }

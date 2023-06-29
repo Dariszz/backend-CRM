@@ -2,12 +2,15 @@ package backendcrm.br.com.resource;
 
 import backendcrm.br.com.model.Cliente;
 import backendcrm.br.com.model.ClienteSaldo;
+import backendcrm.br.com.model.Cupom;
 import backendcrm.br.com.model.dto.PontuacaoDTO;
 import backendcrm.br.com.service.ClienteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RequestMapping("/cliente")
 @RestController
@@ -59,13 +62,12 @@ public class ClienteResource {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
         }
     }
-    @PostMapping("/cashback/{id}")
-    public ResponseEntity<?> buscarCashback(@PathVariable int id) {
+    @PostMapping("/cashback")
+    public ResponseEntity<?> buscarCashback(@RequestBody PontuacaoDTO pontuacaoDTO) {
         try {
-            return ResponseEntity.ok(clienteService.buscarCashback(id));
+            return ResponseEntity.ok(clienteService.buscarCashback(pontuacaoDTO));
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
         }
     }
-
 }
