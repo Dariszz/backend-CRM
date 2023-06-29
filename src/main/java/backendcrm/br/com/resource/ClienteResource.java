@@ -35,7 +35,7 @@ public class ClienteResource {
     public boolean verificarClienteCadastrado(@PathVariable int id) {
         return clienteService.verificarClienteCadastrado(id);
     }
-    @PostMapping("/pontuacao/{id}/{idPedido}")
+    @PostMapping("/pontuacao")
     public ResponseEntity<?> atualizarPontuacao(@RequestBody PontuacaoDTO pontuacaoDTO) {
         try {
             return ResponseEntity.ok(clienteService.atualizarPontuacaoCliente(pontuacaoDTO));
